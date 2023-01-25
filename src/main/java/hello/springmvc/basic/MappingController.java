@@ -1,5 +1,7 @@
 package hello.springmvc.basic;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,4 +33,39 @@ public class MappingController {
         log.info("mappingGetV1");
         return "ok";
     }
+
+    /*
+     * 편리한 축약 애노테이션
+     * @GetMapping
+     * @PostMapping
+     * @PutMapping
+     * DeleteMapping
+     * PatchMapping
+     */
+    @GetMapping("/mapping-get-v2")
+    public String mappingGetV2() {
+        log.info("mapping-get-v2");
+        return "ok";
+    }
+
+    /*
+     * PathVariable 사용
+     * 변수명이 같으면 생략 가능
+     * @PathVariable("userId") String userId => @PathVariable String userId
+     */
+    @GetMapping("/mapping/{userId}")
+    public String mappingPath(@PathVariable("userId") String data) {
+        log.info("mappingPath userId={}", data);
+        return "ok";
+    }
+
+    /*
+     * PathVariable 사용 다중
+     */
+    @GetMapping("/mapping/users/{userId}/orders/{orderId}")
+    public String mappingPath(@PathVariable String userId, @PathVariable Long orderId) {
+        log.info("mappingPath userId={}, orderId={}", userId, orderId);
+        return "ok";
+    }
+
 }
