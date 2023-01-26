@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 @RestController
 @Slf4j
 public class MappingController {
@@ -28,7 +27,7 @@ public class MappingController {
      * method 특정 HTTP 메서드 요청만 허용
      * GET, HEAD, POST, PUT, PATCH, DELETE
      */
-    @RequestMapping(value="/mapping-get-v1",method = RequestMethod.GET)
+    @RequestMapping(value = "/mapping-get-v1", method = RequestMethod.GET)
     public String mappingGetV1() {
         log.info("mappingGetV1");
         return "ok";
@@ -36,8 +35,11 @@ public class MappingController {
 
     /*
      * 편리한 축약 애노테이션
+     * 
      * @GetMapping
+     * 
      * @PostMapping
+     * 
      * @PutMapping
      * DeleteMapping
      * PatchMapping
@@ -51,6 +53,7 @@ public class MappingController {
     /*
      * PathVariable 사용
      * 변수명이 같으면 생략 가능
+     * 
      * @PathVariable("userId") String userId => @PathVariable String userId
      */
     @GetMapping("/mapping/{userId}")
@@ -68,4 +71,30 @@ public class MappingController {
         return "ok";
     }
 
+    /*
+     * 파라미터로 추가 매핑
+     * params="mode",
+     * params="!mode"
+     * params="mode=debug"
+     * params="mode!=debud" (!=)
+     * params={"mode=debug","data=good"}
+     */
+    @GetMapping(value = "/mapping-param", params = "mode=debug")
+    public String mappingParam() {
+        log.info("mappingParam");
+        return "ok";
+    }
+
+    /*
+     * 특정 헤더로 추가 매핑
+     * headers="mode",
+     * headers="!mode"
+     * headers="mode=debug"
+     * headers="mode!=debug" (!=)
+     */
+    @GetMapping(value = "/mapping-header", headers = "mode=debug")
+    public String mappingHeader() {
+        log.info("mappingHeader");
+        return "ok";
+    }
 }
